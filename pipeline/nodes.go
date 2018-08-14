@@ -15,14 +15,20 @@ func Init() {
 	startTime = time.Now()
 }
 
+// 数据源来自于一个Array
 func ArraySource(a ...int) <-chan int {
+	// 调用的真实情况是，函数新建一个channel并马上返回，并行的goroutine来进行发送数据的操作，发送完后记得close。
+	// func: 1.新建一个channel
 	out := make(chan int)
+	// go: 1.发送数据（channel是goroutine之间的通信管道）
 	go func() {
 		for _, v := range a {
 			out <- v
 		}
+		// go: 2.关闭channel，否则会报错：fatal error: all goroutines are asleep - deadlock!
 		close(out)
 	}()
+	// func: 2.返回这个channel
 	return out
 }
 
