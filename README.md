@@ -26,7 +26,7 @@ externalsort
     └── pipeline_test.go
 ```
 
-Downloads:
+Download:
 
 ```
 git clone git@github.com:chao2015/externalsort.git
